@@ -24,6 +24,12 @@ func init() {
 
 // WRITE YOUR CODE BELOW
 
+const (
+	data        = "1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 15\n16 17 18 19 20\n21 22 23 24 25"
+	badData     = "1 2 3 4 5\n6 7 8 9 10\n11 12 13 14\n16 17 18 19 20\n21 22 23 24 25"
+	badDataChar = "1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 A\n16 17 18 19 20\n21 22 23 24 25"
+)
+
 func TestMatrix_Cols(t *testing.T) {
 	tests := []struct {
 		name string
@@ -32,7 +38,7 @@ func TestMatrix_Cols(t *testing.T) {
 	}{
 		{
 			"rows",
-			"1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 15\n16 17 18 19 20\n21 22 23 24 25",
+			data,
 			[][]int{
 				{1, 6, 11, 16, 21},
 				{2, 7, 12, 17, 22},
@@ -60,7 +66,7 @@ func TestMatrix_Rows(t *testing.T) {
 	}{
 		{
 			"cols",
-			"1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 15\n16 17 18 19 20\n21 22 23 24 25",
+			data,
 			[][]int{
 				{1, 2, 3, 4, 5},
 				{6, 7, 8, 9, 10},
@@ -95,7 +101,7 @@ func TestMatrix_Set(t *testing.T) {
 	}{
 		{
 			"ok",
-			"1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 15\n16 17 18 19 20\n21 22 23 24 25",
+			data,
 			args{3, 3, 44},
 			&Matrix{
 				5,
@@ -112,7 +118,7 @@ func TestMatrix_Set(t *testing.T) {
 		},
 		{
 			"not ok row",
-			"1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 15\n16 17 18 19 20\n21 22 23 24 25",
+			data,
 			args{5, 3, 44},
 			&Matrix{
 				5,
@@ -129,7 +135,7 @@ func TestMatrix_Set(t *testing.T) {
 		},
 		{
 			"not ok col",
-			"1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 15\n16 17 18 19 20\n21 22 23 24 25",
+			data,
 			args{3, 5, 44},
 			&Matrix{
 				5,
@@ -158,18 +164,15 @@ func TestMatrix_Set(t *testing.T) {
 }
 
 func TestNew(t *testing.T) {
-	type args struct {
-		str string
-	}
 	tests := []struct {
 		name    string
-		args    args
+		data    string
 		want    *Matrix
 		wantErr error
 	}{
 		{
 			"5x5",
-			args{"1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 15\n16 17 18 19 20\n21 22 23 24 25"},
+			data,
 			&Matrix{
 				5,
 				5,
@@ -185,20 +188,20 @@ func TestNew(t *testing.T) {
 		},
 		{
 			"bad data",
-			args{"1 2 3 4 5\n6 7 8 9 10\n11 12 13 14\n16 17 18 19 20\n21 22 23 24 25"},
+			badData,
 			nil,
 			errors.New("Rows need to be the same length"),
 		},
 		{
 			"bad data char",
-			args{"1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 A\n16 17 18 19 20\n21 22 23 24 25"},
+			badDataChar,
 			nil,
 			errors.New("invalid syntax"),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := New(tt.args.str)
+			got, err := New(tt.data)
 			if e, ok := err.(*strconv.NumError); ok {
 				err = e.Err
 			}
