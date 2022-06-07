@@ -30,7 +30,7 @@ const (
 	badDataChar = "1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 A\n16 17 18 19 20\n21 22 23 24 25"
 )
 
-func TestMatrix_Cols(t *testing.T) {
+func TestCols(t *testing.T) {
 	tests := []struct {
 		name string
 		data string
@@ -58,7 +58,7 @@ func TestMatrix_Cols(t *testing.T) {
 	}
 }
 
-func TestMatrix_Rows(t *testing.T) {
+func TestRows(t *testing.T) {
 	tests := []struct {
 		name string
 		data string
@@ -86,7 +86,7 @@ func TestMatrix_Rows(t *testing.T) {
 	}
 }
 
-func TestMatrix_Set(t *testing.T) {
+func TestSet(t *testing.T) {
 	type args struct {
 		row   int
 		col   int
@@ -211,7 +211,7 @@ func TestNew(t *testing.T) {
 	}
 }
 
-func TestPeople_Len(t *testing.T) {
+func TestLen(t *testing.T) {
 	tests := []struct {
 		name string
 		p    People
@@ -247,7 +247,7 @@ func TestPeople_Len(t *testing.T) {
 	}
 }
 
-func TestPeople_Less(t *testing.T) {
+func TestLess(t *testing.T) {
 	type args struct {
 		i int
 		j int
@@ -322,7 +322,7 @@ func TestPeople_Less(t *testing.T) {
 	}
 }
 
-func TestPeople_Swap(t *testing.T) {
+func TestSwap(t *testing.T) {
 	type args struct {
 		i int
 		j int
