@@ -28,6 +28,7 @@ const (
 	data        = "1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 15\n16 17 18 19 20\n21 22 23 24 25"
 	badData     = "1 2 3 4 5\n6 7 8 9 10\n11 12 13 14\n16 17 18 19 20\n21 22 23 24 25"
 	badDataChar = "1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 A\n16 17 18 19 20\n21 22 23 24 25"
+	errBadData  = "bad data"
 )
 
 func TestCols(t *testing.T) {
@@ -52,7 +53,7 @@ func TestCols(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			m, err := New(tt.data)
 			cols := m.Cols()
-			assert.Nil(t, err, "bad data")
+			assert.Nil(t, err, errBadData)
 			assert.Equal(t, cols, tt.want, fmt.Errorf("cols() = %v, want %v", cols, tt.want))
 		})
 	}
@@ -80,7 +81,7 @@ func TestRows(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			m, err := New(tt.data)
 			rows := m.Rows()
-			assert.Nil(t, err, "bad data")
+			assert.Nil(t, err, errBadData)
 			assert.Equal(t, tt.want, rows, fmt.Errorf("rows() = %v, want %v", rows, tt.want))
 		})
 	}
@@ -154,7 +155,7 @@ func TestSet(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			m, err := New(tt.data)
-			assert.Nil(t, err, "bad data")
+			assert.Nil(t, err, errBadData)
 			got := m.Set(tt.args.row, tt.args.col, tt.args.value)
 			assert.Equal(t, tt.want, got, fmt.Errorf("set() = %v, want %v", got, tt.want))
 
